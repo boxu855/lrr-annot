@@ -214,8 +214,12 @@ def multi_regression(preX, l, r):
     m, scores = median_slope(winding, 150, 250)
     pre, mid, post = get_premidpost(winding, (l, r), m)
 
+    
     start = np.where(np.diff(np.sign(pre)))[0][-1]
-    end = r+np.where(np.diff(np.sign(post)))[0][0]
+    if preX.shape[0] - r:
+        end = r+np.where(np.diff(np.sign(post)))[0][0]
+    else:
+        end = preX.shape[0]
     m, scores = median_slope(winding[start:end], 20, 30)
 
     n = len(winding)
